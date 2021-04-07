@@ -11,13 +11,14 @@ describe '#initialize' do
 
   it 'has name and check for teams as Array' do
     premier = League.new("Premier League")
-    expect(premier).to eq("Premier League")
-    expect(premier).to be(Array)
+    expect(premier.name).to eq("Premier League")
+    expect(premier.teams).to eq([])
   end
 end
 
 describe 'teams in premier league' do
   it 'check for teams in premier leage' do
+    premier = League.new("Premier League")
     roy = Player.new({name: "Roy Kent", position: "Center Midfielder" , salary: 1_000_000})
     sam = Player.new({name: "Sam Obisanya", position: "Right-back Defender", salary: 600_000})
     richmond = Team.new("AFC Richmond", "Ted Lasso", [roy, sam])
@@ -35,7 +36,8 @@ describe 'teams in premier league' do
     expect(premier.teams).to eq(expected)
   end
 
-  it 'check for captains' do
+  xit 'check for captains' do
+    premier = League.new("Premier League")
     roy = Player.new({name: "Roy Kent", position: "Center Midfielder" , salary: 1_000_000})
     sam = Player.new({name: "Sam Obisanya", position: "Right-back Defender", salary: 600_000})
     richmond = Team.new("AFC Richmond", "Ted Lasso", [roy, sam])
@@ -54,6 +56,7 @@ describe 'teams in premier league' do
   end
 
   it 'check for players by each team' do
+    premier = League.new("Premier League")
     roy = Player.new({name: "Roy Kent", position: "Center Midfielder" , salary: 1_000_000})
     sam = Player.new({name: "Sam Obisanya", position: "Right-back Defender", salary: 600_000})
     richmond = Team.new("AFC Richmond", "Ted Lasso", [roy, sam])
@@ -67,7 +70,10 @@ describe 'teams in premier league' do
     premier.add_team(richmond)
     premier.add_team(manchester)
 
-    expected = []
+    expected = {
+      richmond => [roy.name, sam.name],
+      manchester => [jamie.name, fernandinho.name]
+    }
     expect(premier.players_by_team).to eq(expected)
   end
 end

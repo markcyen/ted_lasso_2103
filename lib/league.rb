@@ -14,4 +14,24 @@ class League
     @teams << teams
   end
 
+  def captains
+    find_players = @teams.filter_map do |team|
+      team.players if teams
+    end.flatten
+  end
+
+  def players_by_team
+    hash = Hash.new { |hash, key| hash[key] = [] }
+    all_players = @teams.filter_map do |team|
+      team.players
+    end.flatten
+
+    @teams.each do |team|
+      all_players.each do |player|
+        hash[team] << player.name
+      end
+    end
+    hash
+  end
+
 end
